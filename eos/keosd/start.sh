@@ -26,10 +26,8 @@ PID_FILE=$DATA_DIR"/keosd.pid"
 # Attempt to stop any running instance before starting a new one.
 $SCRIPT_PATH/stop.sh $LOG_LEVEL || true
 # Start keosd with our custom directory, passing in any additional arguments
-# TODO: Allow log file names to be configurable
-# echo "Executing nodeos -- data-ri $DATA_DIR  --config-dir $CONFIG_DIR $NODEOS_ARGS &> $DATA_DIR/nodeos_log.txt & echo $! > $DATA_DIR/nodeos.pid"
 $KEOSD --data-dir $DATA_DIR --config-dir $CONFIG_DIR "$KEOSD_ARGS" &> $DATA_DIR/keosd_log.txt & echo $! > $PID_FILE
 # Send notifications
-$SCRIPT_PATH/../util/notify.sh $LOG_LEVEL $__INFO "$NODE_NAME is up."
+$SCRIPT_PATH/../util/notify.sh $LOG_LEVEL $__INFO "$NODE_NAME keosd is up."
 # </Body>
 

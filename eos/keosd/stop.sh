@@ -42,7 +42,7 @@ if [ -f $PID_FILE ]; then
 
 	echo -ne "\rkeosd stopped. \n"
 
-	$SCRIPT_PATH/../util/notify.sh $LOG_LEVEL $__INFO "$NODE_NAME stopped"
+	$SCRIPT_PATH/../util/notify.sh $LOG_LEVEL $__INFO "$NODE_NAME keosd stopped"
 fi
 # </Body>
 
