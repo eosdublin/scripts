@@ -54,7 +54,9 @@ echo "Adding iptables rule for $HOST_IP:$WALLET_PORT -> $CONTAINER_IP:$WALLET_PO
 sudo iptables -t nat -I PREROUTING -i eth0 -p TCP -d $HOST_IP --dport $WALLET_PORT -j DNAT --to-destination $CONTAINER_IP:$WALLET_PORT
 
 echo "Launching keosd..."
-lxc exec $CONTAINER_NAME -- /home/eos/scripts/eos/keosd/start.sh
-
+#lxc exec $CONTAINER_NAME -- /bin/bash /home/eos/scripts/eos/keosd/start.sh
+lxc exec $CONTAINER_NAME -- sudo --login --user ubuntu
+./home/eos/scripts/eos/kesod/start.sh
+exit
 echo ">>> Done creating wallet container. <<<"
 # </Body>
