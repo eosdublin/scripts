@@ -39,7 +39,7 @@ then
 fi
 
 echo "Launching keosd..."
-lxc exec $CONTAINER_NAME -- /home/eos/scripts/eos/keosd/start.sh
+lxc exec $CONTAINER_NAME -- /bin/bash /home/eos/bin/keosd --config /home/eos/wallet/config.ini
 
 echo ">>> Done creating wallet container. <<<"
 # </Body>
