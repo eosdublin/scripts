@@ -22,9 +22,11 @@ EOS_CONFIG=$4
 
 # <Body>
 
+WALLET_PORT=$(grep http-server-address= $WALLET_CONFIG | cut -d':' -f2)
+
 echo ">>> Launching container..."
 
-if ! . launch.sh $NODEOS_LXC_TEMPLATE $CONTAINER_NAME
+if ! . launch.sh $NODEOS_LXC_TEMPLATE $CONTAINER_NAME $WALLET_PORT $WALLET_PORT
 then
 	echo ">>> Error launching wallet container."
 	exit 1
@@ -45,13 +47,6 @@ then
 	echo ">>> Error pushing EOS scripting configuration."
 	exit 1
 fi
-
-CONTAINER_IP=$(lxc list | grep $CONTAINER_NAME | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+')
-WALLET_PORT=$(grep http-server-address= $WALLET_CONFIG | cut -d':' -f2)
-HOST_IP=$(hostname -I | awk '{print $1}')
-
-echo "Adding iptables rule for $HOST_IP:$WALLET_PORT -> $CONTAINER_IP:$WALLET_PORT"
-sudo iptables -t nat -I PREROUTING -i eth0 -p TCP -d $HOST_IP --dport $WALLET_PORT -j DNAT --to-destination $CONTAINER_IP:$WALLET_PORT
 
 # Enable keosd in monit
 lxc exec $CONTAINER_NAME -- sudo ln -s /etc/monit/conf-available/keosd /etc/monit/conf-enabled/ && sudo systemctl reload monit
