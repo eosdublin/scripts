@@ -53,10 +53,8 @@ HOST_IP=$(hostname -I | awk '{print $1}')
 echo "Adding iptables rule for $HOST_IP:$WALLET_PORT -> $CONTAINER_IP:$WALLET_PORT"
 sudo iptables -t nat -I PREROUTING -i eth0 -p TCP -d $HOST_IP --dport $WALLET_PORT -j DNAT --to-destination $CONTAINER_IP:$WALLET_PORT
 
-echo "Launching keosd..."
-#lxc exec $CONTAINER_NAME -- /bin/bash /home/eos/scripts/eos/keosd/start.sh
-lxc exec $CONTAINER_NAME -- sudo --login --user ubuntu
-./home/eos/scripts/eos/kesod/start.sh
-exit
+# Enable keosd in monit
+lxc exec -- sudo ln -s /etc/monit/conf-available/keosd /etc/monit/conf-enabled/keosd
+
 echo ">>> Done creating wallet container. <<<"
 # </Body>
