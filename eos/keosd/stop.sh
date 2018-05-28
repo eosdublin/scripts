@@ -19,19 +19,19 @@ LOG_LEVEL=${1:-$__INFO}
 # </Parameters>
 
 # <Configuration>
-PID_FILE=$DATA_DIR"/nodeos.pid"
+PID_FILE=$DATA_DIR"/keosd.pid"
 # </Configuration>
 
 # <Body>
 if [ -f $PID_FILE ]; then
-	
+
 	pid=$(cat $PID_FILE)
-	
+
 	#NOTE - Assuming no permission errors here.
 	if [ -d "/proc/$pid/fd" ]; then
 		kill $pid ||:
 	fi
-	
+
 	while true; do
 		[ ! -d "/proc/$pid/fd" ] && break
 		echo -ne "."
@@ -39,9 +39,10 @@ if [ -f $PID_FILE ]; then
 	done
 
 	rm -r $PID_FILE
-	
-	echo -ne "\rnodeos stopped. \n"
-	
-	$SCRIPT_PATH/../notify.sh $LOG_LEVEL $__INFO "$NODE_NAME node stopped"
+
+	echo -ne "\rkeosd stopped. \n"
+
+	$SCRIPT_PATH/../util/notify.sh $LOG_LEVEL $__INFO "$NODE_NAME stopped"
 fi
 # </Body>
+
