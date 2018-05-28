@@ -26,20 +26,14 @@ then
 	exit 1
 fi
 
-if ! lxc exec $CONTAINER_NAME -- mkdir /home/eos/wallet
-then
-	echo ">>> Error creating wallet directory."
-	exit 1
-fi
-
-if ! lxc file push -rp "$WALLET_CONFIG" $CONTAINER_NAME/home/eos/wallet/config.ini
+if ! lxc file push -rp "$WALLET_CONFIG" $CONTAINER_NAME/home/eos/config/
 then
 	echo ">>> Error pushing wallet configuration."
 	exit 1
 fi
 
 echo "Launching keosd..."
-lxc exec $CONTAINER_NAME -- /bin/bash /home/eos/bin/keosd --config /home/eos/wallet/config.ini
+lxc exec $CONTAINER_NAME -- /home/eos/scripts/eos/keosd/start.sh
 
 echo ">>> Done creating wallet container. <<<"
 # </Body>
