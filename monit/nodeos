@@ -1,0 +1,23 @@
+check process nodeos with pidfile /home/eos/data/nodeos.pid
+  start program = "/home/eos/scripts/eos/nodeos/start.sh" as uid "ubuntu"
+  stop program = "/home/eos/scripts/eos/nodeos/stop.sh" as uid "ubuntu"
+  restart program = "/home/eos/scripts/eos/nodeos/restart.sh" as uid "ubuntu"
+
+CHECK FILE nodeos_log PATH /home/eos/data/nodeos_log.txt
+    IF modification time IS older THAN 30 seconds THEN exec "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"
+    ELSE IF succeeded THEN EXEC "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"
+
+    IF SIZE > 5 GB THEN EXEC "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"
+    ELSE IF succeeded THEN EXEC "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"
+
+check filesystem rootfs with path /
+  if space usage > 70% then exec "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"
+    repeat every 10 cycles
+  else if succeeded then exec "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"
+
+check system $HOST
+    if memory usage > 75% for then exec "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"
+    else if succeeded then exec "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"
+
+    if cpu usage > 75% for 5 cycles then exec "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"
+    else if succeeded then exec "/home/eos/scripts/eos/util/monit_alert.sh" as uid "ubuntu"

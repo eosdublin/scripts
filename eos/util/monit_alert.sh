@@ -13,11 +13,14 @@ SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 . $SCRIPT_PATH/../config.sh
 # </Imports>
 
-# <Parameters>
-SEVERITY=$1
-SOURCE=$2
-# </Parameters>
-
 # <Body>
-$SCRIPT_PATH/slack.sh "$MONIT_EVENT for $MONIT_SERVICE on $MONIT_HOST\n$MONIT_DESCRIPTION\nm: $MONIT_PROCESS_MEMORY | c: $MONIT_PROCESS_CPU_PERCENT"
+MESSAGE="$MONIT_EVENT for $MONIT_SERVICE"
+
+if [ ! "$MONIT_SERVICE" = "$MONIT_HOST" ]; then
+    MESSAGE+=" on $MONIT_HOST"
+fi
+
+MESSAGE+="\n$MONIT_DESCRIPTION"
+
+$SCRIPT_PATH/slack.sh "$MESSAGE"
 # </Body>
