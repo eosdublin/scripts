@@ -24,7 +24,9 @@ BUILD=${5:-0}
 # </Configuration>
 
 # <Body>
-mkdir $INSTALLATION_ROOT
+if [ ! -d $INSTALLATION_ROOT ]; then
+    mkdir $INSTALLATION_ROOT
+fi
 
 git clone https://github.com/EOSIO/eos.git $INSTALLATION_ROOT/eos
 
@@ -32,7 +34,7 @@ cd $INSTALLATION_ROOT/eos
 
 if [ $ISTAG -eq 1 ]
 then
-	git fetch --all --tags --prune
+    git fetch --all --tags --prune
     git checkout tags/$BRANCH -b $BRANCH
 else
     git checkout $BRANCH -b $BRANCH

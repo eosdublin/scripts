@@ -42,6 +42,6 @@ if [ -f $PID_FILE ]; then
 	
 	echo -ne "\rnodeos stopped. \n"
 	
-	$SCRIPT_PATH/../notify.sh $LOG_LEVEL $__INFO "$NODE_NAME node stopped"
+	$SCRIPT_PATH/../util/notify.sh $LOG_LEVEL $__INFO "$NODE_NAME node stopped"
 fi
 # </Body>

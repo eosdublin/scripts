@@ -16,7 +16,7 @@ SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 # <Parameters>
 EOS_BRANCH=${1:-master}
 IS_TAG=${2:-0}
-INSTALLATION_ROOT=${3:-"~/eos"}
+INSTALLATION_ROOT=${3:-"~"}
 CONTAINER_NAME=${4:-$EOS_BRANCH}
 # </Parameters>
 
@@ -50,12 +50,6 @@ fi
 
 echo ">>> Running EOS installer script..."
 lxc exec $CONTAINER_NAME -- /bin/bash /tmp/install_eos_version.sh $INSTALLATION_ROOT $EOS_BRANCH $IS_TAG "EOS" 1
-
-#echo ">>> Configuring iptables routing..."
-#VMIP=$(hostname -I | awk '{print $1}')
-#CONTAINERIP=$(lxc list | grep $CONTAINER_NAME | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+')
-
-#sudo iptables -t nat -I PREROUTING -i $NIC -p TCP -d $VMIP --dport $PUBLIC_PROXY_PORT -j DNAT --to-destination $CONTAINERIP:$PROXY_CONTAINER_PORT
 
 printf ">>> Setup Complete <<<"
 # </Body>
