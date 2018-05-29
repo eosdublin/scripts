@@ -3,7 +3,7 @@
 #
 # Script created by @samnoble
 #
-# Visit https://github.com/eosdublin/cerberus for details.
+# Visit https://github.com/eosdublin/scripts for details.
 #
 ################################################################################
 
