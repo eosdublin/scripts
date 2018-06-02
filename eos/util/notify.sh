@@ -26,6 +26,6 @@ should_log=$(($SEVERITY - $LOG_LEVEL))
 # <Body>
 # Only notify if $SEVERITY <= $$LOG_LEVEL
 if [ $should_log -lt 1 ]; then
-	$SCRIPT_PATH/slack.sh "$MESSAGE"
+	$SCRIPT_PATH/util/slack.sh "$MESSAGE"
 fi
 # </Body>
