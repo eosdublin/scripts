@@ -30,8 +30,8 @@ if [ -d $DATA_DIR"/blocks" ]; then
   rm -rf $DATA_DIR/blocks
 fi
 
-if [ -d $DATA_DIR"/shared_mem" ]; then
-  rm -rf $DATA_DIR/shared_mem
+if [ -d $DATA_DIR"/state" ]; then
+  rm -rf $DATA_DIR/state
 fi
 
 # TODO - Restore a snapshot here
