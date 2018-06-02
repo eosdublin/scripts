@@ -15,8 +15,7 @@ SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 # </Imports>                                                                           
                                                                                        
 # <Parameters>                                                                         
-LOG_LEVEL=${1:-$__INFO}                                                                
-KEOSD_ARGS=$2                                                                          
+KEOSD_ARGS=$@
 # </Parameters>                                                                        
                                                                                        
 # <Configuration>                                                                      
@@ -24,7 +23,7 @@ KEOSD_ARGS=$2
                                                                                        
 # <Body>                                                                               
 # Attempt to stop any running instance before starting a new one.                      
-$SCRIPT_PATH/stop.sh $LOG_LEVEL                                                        
+$SCRIPT_PATH/stop.sh                                                        
 # Start keosd with our custom directory, passing in any additional arguments           
-$SCRIPT_PATH/start.sh $LOG_LEVEL "$KEOSD_ARGS"                                         
+$SCRIPT_PATH/start.sh "$KEOSD_ARGS"                                         
 # </Body>                                                                              

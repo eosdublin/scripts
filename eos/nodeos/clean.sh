@@ -15,7 +15,6 @@ SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 # </Imports>
 
 # <Parameters>
-LOGLEVEL=${1:-$__INFO}
 # </Parameters>
 
 # <Configuration>
@@ -30,13 +29,13 @@ if [ -d $DATA_DIR"/blocks" ]; then
   rm -rf $DATA_DIR/blocks
 fi
 
-if [ -d $DATA_DIR"/state" ]; then
-  rm -rf $DATA_DIR/state
+if [ -d $DATA_DIR"/shared_mem" ]; then
+  rm -rf $DATA_DIR/shared_mem
 fi
 
 # TODO - Restore a snapshot here
 # </Body>
 
 # <Notifications>
-$SCRIPT_PATH/../util/notify.sh $LOGLEVEL $__INFO "$NODE_NAME node cleaned."
+$SCRIPT_PATH/../util/notify.sh $__INFO "$NODE_NAME node cleaned."
 # </Notifications>

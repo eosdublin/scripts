@@ -15,8 +15,7 @@ SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 # </Imports>
 
 # <Parameters>
-LOG_LEVEL=${1:-$__INFO}
-NODEOS_ARGS=$2
+NODEOS_ARGS=$@
 # </Parameters>
 
 # <Configuration>
@@ -24,7 +23,7 @@ NODEOS_ARGS=$2
 
 # <Body>
 # Attempt to stop any running instance before starting a new one.
-$SCRIPT_PATH/stop.sh $LOG_LEVEL
+$SCRIPT_PATH/stop.sh
 # Start nodeos with our custom directory, passing in any additional arguments
-$SCRIPT_PATH/start.sh $LOG_LEVEL "$NODEOS_ARGS"
+$SCRIPT_PATH/start.sh $NODEOS_ARGS
 # </Body>

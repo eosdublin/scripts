@@ -14,9 +14,8 @@ SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 # </Imports>
 
 # <Parameters>
-LOG_LEVEL=$1
-SEVERITY=$2
-MESSAGE=$3
+SEVERITY=$1
+MESSAGE=$2
 # </Parameters>
 
 # <Configuration>
@@ -26,6 +25,6 @@ should_log=$(($SEVERITY - $LOG_LEVEL))
 # <Body>
 # Only notify if $SEVERITY <= $$LOG_LEVEL
 if [ $should_log -lt 1 ]; then
-	$SCRIPT_PATH/util/slack.sh "$MESSAGE"
+	$SCRIPT_PATH/slack.sh "$MESSAGE"
 fi
 # </Body>

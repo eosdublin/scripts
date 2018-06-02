@@ -15,11 +15,10 @@ SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 # </Imports>
 
 # <Parameters>
-LOG_LEVEL=${1:-$__INFO}
 # </Parameters>
 
 # <Configuration>
-PID_FILE=$DATA_DIR"/keosd.pid"
+PID_FILE=$WALLET_DIR"/keosd.pid"
 # </Configuration>
 
 # <Body>
@@ -42,7 +41,7 @@ if [ -f $PID_FILE ]; then
 
 	echo -ne "\rkeosd stopped. \n"
 
-	$SCRIPT_PATH/../util/notify.sh $LOG_LEVEL $__INFO "$NODE_NAME keosd stopped"
+	$SCRIPT_PATH/../util/notify.sh $__INFO "$NODE_NAME keosd stopped"
 fi
 # </Body>
 

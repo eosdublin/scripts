@@ -15,7 +15,6 @@ SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 # </Imports>
 
 # <Parameters>
-LOG_LEVEL=${1:-$__INFO}
 # </Parameters>
 
 # <Configuration>
@@ -24,14 +23,13 @@ PID_FILE=$DATA_DIR"/nodeos.pid"
 
 # <Body>
 if [ -f $PID_FILE ]; then
-	
 	pid=$(cat $PID_FILE)
-	
+
 	#NOTE - Assuming no permission errors here.
 	if [ -d "/proc/$pid/fd" ]; then
 		kill $pid ||:
 	fi
-	
+
 	while true; do
 		[ ! -d "/proc/$pid/fd" ] && break
 		echo -ne "."
@@ -39,9 +37,9 @@ if [ -f $PID_FILE ]; then
 	done
 
 	rm -r $PID_FILE
-	
+
 	echo -ne "\rnodeos stopped. \n"
-	
-	$SCRIPT_PATH/../util/notify.sh $LOG_LEVEL $__INFO "$NODE_NAME node stopped"
+
+	$SCRIPT_PATH/../util/notify.sh $__INFO "$NODE_NAME node stopped"
 fi
 # </Body>

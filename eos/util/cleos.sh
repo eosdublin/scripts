@@ -21,5 +21,5 @@ CLEOS_PARAMS=$3
 # </Parameters>
 
 # <Body>
-$CLEOS -u $NODE_URL --wallet-url $WALLET_URL "$CLEOS_PARAMS"
+./$CLEOS -u $NODE_URL --wallet-url $WALLET_URL $CLEOS_PARAMS
 # </Body>
