@@ -14,6 +14,15 @@ TARGET_PATH=${2:-/opt/patroneos}
 # </Parameters>
 
 # <Body>
-git clone https://github.com/eosdublin/patroneos-bin.git ~/patroneos
-lxc file push ~/patroneos/patroneosd $CONTAINER_NAME/$TARGET_PATH
+
+if ! [ -d ~/patroneos ]; then
+	git clone https://github.com/eosdublin/patroneos-bin.git ~/patroneos
+fi
+
+cd ~/patroneos
+git pull
+
+lxc exec $CONTAINER_NAME -- sudo pkill patroneosd
+lxc file push ~/patroneos/patroneosd $CONTAINER_NAME/$TARGET_PATH/
+lxc exec $CONTAINER_NAME -- nohup /bin/bash -c "sudo /home/ubuntu/script.sh"
 # </Body>
