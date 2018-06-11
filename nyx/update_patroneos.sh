@@ -15,5 +15,5 @@ TARGET_PATH=${2:-/opt/patroneos}
 
 # <Body>
 git clone https://github.com/eosdublin/patroneos-bin.git ~/patroneos
-lxc file push ~/patroneos/patroneosd $CONTAINER_NAME
+lxc file push ~/patroneos/patroneosd $CONTAINER_NAME/$TARGET_PATH
 # </Body>
