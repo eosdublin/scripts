@@ -25,5 +25,7 @@ DATE=`date -d "now" +'%Y_%m_%d-%H_%M'`
 
 echo "Archiving BlockChain $ARCHIVE_TAG [$DATE]"
 
+tar -pcvzf $ARCHIVE_STORAGE/nodeos_log-$ARCHIVE_TAG-$DATE.tar.gz $DATA_DIR/nodeos_log.txt
 tar -pcvzf $ARCHIVE_STORAGE/blocks-$ARCHIVE_TAG-$DATE.tar.gz $DATA_DIR/blocks
 ln -sf $ARCHIVE_STORAGE/blocks-$ARCHIVE_TAG-$DATE.tar.gz $ARCHIVE_STORAGE/blocks.tar.gz
+ln -sf $ARCHIVE_STORAGE/nodeos_log-$ARCHIVE_TAG-$DATE.tar.gz $ARCHIVE_STORAGE/nodeos_log.tar.gz
