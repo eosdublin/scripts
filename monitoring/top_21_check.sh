@@ -78,13 +78,13 @@ if [ -n "$IS_TOP21" ] && [ ! -f $CHECK_FILE ]; then
     echo "$PRODUCER_NAME was just elected in to the top 21"
 
     if [ $SEND_ALERTS -eq 1 ]; then
-        curl -X POST https://api.twilio.com/2010-04-01/Accounts/$TWILIO_SID/Messages.json \
+        curl -s -X POST https://api.twilio.com/2010-04-01/Accounts/$TWILIO_SID/Messages.json \
             --data-urlencode "Body=IN TOP 21 ALERT for $PRODUCER_NAME" \
             --data-urlencode "From=$FROM_NUMBER" \
             --data-urlencode "To=$TO_NUMBER" \
             -u $TWILIO_SID:$TWILIO_AUTH
 
-        curl -X POST https://api.twilio.com/2010-04-01/Accounts/$TWILIO_SID/Calls.json \
+        curl -s -X POST https://api.twilio.com/2010-04-01/Accounts/$TWILIO_SID/Calls.json \
             --data-urlencode "Url=$TWIML_URL" \
             --data-urlencode "To=$TO_NUMBER" \
             --data-urlencode "From=$FROM_NUMBER" \
@@ -93,13 +93,13 @@ if [ -n "$IS_TOP21" ] && [ ! -f $CHECK_FILE ]; then
 
     touch $CHECK_FILE
 
-elif [ -f $CHECK_FILE ]; then
+elif [ -z "$IS_TOP21" ] && [ -f $CHECK_FILE ]; then
 
     echo "$PRODUCER_NAME is out of the top 21"
 
     if [ $SEND_ALERTS -eq 1 ]; then
         # The producer was in the top 21, but no longer is. Just send an SMS here
-        curl -X POST https://api.twilio.com/2010-04-01/Accounts/$TWILIO_SID/Messages.json \
+        curl -s -X POST https://api.twilio.com/2010-04-01/Accounts/$TWILIO_SID/Messages.json \
         --data-urlencode "Body=OUT OF TOP 21 ALERT for $PRODUCER_NAME" \
         --data-urlencode "From=$FROM_NUMBER" \
         --data-urlencode "To=$TO_NUMBER" \
