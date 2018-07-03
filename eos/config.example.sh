@@ -13,6 +13,18 @@ NODE_NAME=eosdublin.mainnet.one
 # A webhook for Slack notifications
 SLACK_WEBHOOK_URL=
 
+# The Twilio account SID
+TWILIO_SID=ABCDEFG
+
+# The phone number to call
+TWILIO_TO_NUMBER=+1234567890
+
+# The Twilio number to show as the caller
+TWILIO_FROM_NUMBER=+1234567890
+
+# The Twilio Auth token
+TWILIO_AUTH_TOKEN=ABCDEFG
+
 # The absolute path to the nodeos binary
 NODEOS=/home/eos/bin/nodeos
 
