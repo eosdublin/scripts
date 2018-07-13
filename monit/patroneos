@@ -1,0 +1,2 @@
+check process patroneos with pidfile /var/run/patroneosd.pid
+  start program = "/home/ubuntu/start_patroneos.sh" as uid "root"
