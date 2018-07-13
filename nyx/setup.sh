@@ -115,12 +115,9 @@ lxc exec $CONTAINER_NAME -- nohup /bin/bash -c "sudo /home/ubuntu/script.sh"
 # Add iptables rules
 ./setup_iptables.sh $CONTAINER_NAME
 
-# Add files so we can run iptables setup after a reboot
-sudo cp setup_iptables.sh /usr/local/bin/setup_iptables.sh
-sudo chown root:root /usr/local/bin/setup_iptables.sh
-sudo cp cron/set_iptables_rules /etc/cron.d
-sudo chown root:root /etc/cron.d/set_iptables_rules
+# Make sure we persist our iptables rules across reboots
+echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
+echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
+sudo apt-get -y install iptables-persistent
 
-# Restart LXD to ensure the correct iptables rules are added
-sudo service lxd restart
 # </Body>
