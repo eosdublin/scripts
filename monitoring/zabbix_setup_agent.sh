@@ -96,6 +96,8 @@ Hostname=$AGENT_HOST_NAME
 echo '
 # Parameters: response_field, server_ip
 UserParameter=nodeos_info[*],curl -s http://$2:8888/v1/chain/get_info | jq -r ".$1"
+UserParameter=cleos_info[*],/home/eos/bin/cleos -u http://$1:8888 $2 | jq -r ".$3"
+UserParameter=telos_producer_info[*],/home/eos/bin/cleos -u http://$1:8888 system listproducers --limit 1 --lower $2 --json | jq -r ".rows[0].$3"
 ' | sudo tee /etc/zabbix/zabbix_agentd.d/userparameter_nodeos.conf > /dev/null
 
 echo "## Starting Zabbix Agent..."
