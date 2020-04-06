@@ -10,7 +10,6 @@ EXPIRATION=${8:-$(date --date='+1 month' +%FT%T)}
 DRY_RUN=${9:-1}
 
 CLEOS="cleos --wallet-url http://127.0.0.1:7777 -u http://xec.eosdublin.io"
-NEW_ACCOUNT_FQN=$NEW_ACCOUNT_NAME
 SPONSOR="welcome.xec"
 SPONSOR_PERMISSION="newacc"
 
@@ -64,7 +63,7 @@ END
 NEWACCOUNT_DATA=$(cat <<-END
 {
 	"creator": "$SPONSOR",
-	"name": "$NEW_ACCOUNT_FQN",
+	"name": "$NEW_ACCOUNT_NAME",
 	"owner": {
 		"threshold": 1,
 		"keys": [{ "key": "$NEW_ACCOUNT_OWNER_KEY", "weight": 1 }],
@@ -142,5 +141,5 @@ fi
 # TRANSACTION="${TRANSACTION//\"/\\\"}"
 # MULTISIG_PERMISSIONS="$(echo "${MULTISIG_PERMISSIONS//\"/\\\"}" | tr -d '[:space:]')"
 
-echo $CLEOS multisig propose_trx "$PROPOSAL_NAME" "$MULTISIG_PERMISSIONS" "$TRANSACTION" $PROPOSER $ARGS
+echo $CLEOS multisig propose_trx "$PROPOSAL_NAME" \"$MULTISIG_PERMISSIONS\" \"$TRANSACTION\" $PROPOSER $ARGS
 $CLEOS multisig propose_trx "$PROPOSAL_NAME" "$MULTISIG_PERMISSIONS" "$TRANSACTION" $PROPOSER $ARGS
